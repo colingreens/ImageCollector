@@ -56,12 +56,12 @@ namespace ImageCollector
             else
             {
                 videoSource = new VideoCaptureDevice(videoDevices[comboBoxCams.SelectedIndex].MonikerString);
+                
                 //set newframe event handler
                 videoSource.NewFrame += new NewFrameEventHandler(videoSource_NewFrame);
                 var whatsInHere = videoSource.VideoCapabilities;
                 for (int i = 0; i < whatsInHere.Length; i++)
                 {
-
                     string resolution = "Resolution Number " + Convert.ToString(i);
                     string resolution_size = videoSource.VideoCapabilities[i].FrameSize.ToString();
                 }
@@ -72,9 +72,17 @@ namespace ImageCollector
 
         private void videoSource_NewFrame(object sender, NewFrameEventArgs eventArgs)
         {
+            var oldImage = pictureBoxStream.Image;
             Bitmap image = (Bitmap)eventArgs.Frame.Clone();
-            _webCamShot = image;
-            pictureBoxStream.Image = image;
+            
+                _webCamShot = image;
+                pictureBoxStream.Image = image;
+            if (oldImage != null)
+            {
+                oldImage.Dispose();
+            }
+                           
+              
         }
 
         private void btnRecord_Click(object sender, EventArgs e)
@@ -84,7 +92,8 @@ namespace ImageCollector
             if (radioButtonTimeLapse.Checked)
             {
                 timeLapseTimer.Start();
-            }            
+            }
+                       
         }
 
         private void trackBar1_ValueChanged(object sender, EventArgs e)
