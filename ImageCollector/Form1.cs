@@ -7,6 +7,7 @@ using AForge.Video.DirectShow;
 using Accord.Video.FFMPEG;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Collections.Generic;
 
 namespace ImageCollector
 {
@@ -122,6 +123,10 @@ namespace ImageCollector
         private void timer1_Tick(object sender, EventArgs e)
         {
             _dateTimeStamp = DateTime.Now.ToString("yyyyHHddHHmmss");
+            if (true)
+            {
+
+            }
             _webCamShot.Save(_savePath + "\\" + _dateTimeStamp + "imageTest.jpg", ImageFormat.Jpeg);
         }
 
@@ -143,12 +148,16 @@ namespace ImageCollector
             int width = 1920;
             int height = 1080;
 
-            var imagesCollection = Directory.GetFiles(_savePath, "*.jpg", SearchOption.TopDirectoryOnly).ToList();
+            //DirectoryInfo info = new DirectoryInfo(_savePath);
+            //var files = Directory.GetFiles(@"C:\", "*").OrderByDescending(d => new FileInfo(d).CreationTime);
+            var imagesCollection = Directory.GetFiles(_savePath,"*.jpg", SearchOption.TopDirectoryOnly).OrderBy(p => new FileInfo(p).CreationTime).ToList();
+            
+
             using (VideoFileWriter writer = new VideoFileWriter())
             {
                 var desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
-                writer.Open($@"{desktop}\test1.avi", width, height, 10, VideoCodec.MPEG4, 10000000);
+                writer.Open($@"{desktop}\test1.avi", width, height,8, VideoCodec.MPEG4, 15000000);
 
                 foreach (var frame in imagesCollection)
                 {
@@ -183,5 +192,6 @@ namespace ImageCollector
                 _timeMagnitude = 3600000;
             }
         }
+  
     }
 }
