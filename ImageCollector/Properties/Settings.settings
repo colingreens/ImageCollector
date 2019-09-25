@@ -2,8 +2,8 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ImageCollector.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="Setting" Type="System.String" Scope="Application">
-      <Value Profile="(Default)" />
+    <Setting Name="DefaultSaveFolder" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">C:\Users\cbenson\Pictures\ImageTest</Value>
     </Setting>
   </Settings>
 </SettingsFile>
